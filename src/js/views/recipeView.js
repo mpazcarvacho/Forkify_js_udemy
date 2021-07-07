@@ -1,33 +1,23 @@
 // import icons from '../img/icons.svg'; //Parcel 1
 import icons from 'url:../../img/icons.svg'; //Parcel 2
 import { Fraction } from 'fractional'; //common js way: var Fraction = require('fractional').Fraction
+import View from './View.js'; //here the .js is not needed but is good for consistency.
 
-class RecipeView {
+class RecipeView extends View {
   //Private properties. All the views will have these properties in common.
-  #parentElement = document.querySelector('.recipe');
-  #data;
-  #errorMessage = `We couldn't find that recipe. Plese try another one!`;
-  #message = ``;
+  //Inheritance of protected methods and properties doens't work yet qith Babel and Parcel, apparently. In that case we need to go back to the js convention to protect fields (_)
+  _parentElement = document.querySelector('.recipe');
+  _errorMessage = `We couldn't find that recipe. Plese try another one!`;
+  _message = ``;
 
-  render(data) {
-    this.#data = data;
-    const markup = this.#generateMarkup();
-    this.#clear();
-    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
-  }
-
-  #clear() {
-    this.#parentElement.innerHTML = '';
-  }
-
-  #generateMarkup() {
+  _generateMarkup() {
     return `
       <figure class="recipe__fig">
-        <img src="${this.#data.image}" crossorigin alt="${
-      this.#data.title
+        <img src="${this._data.image}" crossorigin alt="${
+      this._data.title
     }" class="recipe__img" />
         <h1 class="recipe__title">
-          <span>${this.#data.title}</span>
+          <span>${this._data.title}</span>
         </h1>
       </figure>
 
@@ -37,7 +27,7 @@ class RecipeView {
             <use href="${icons}#icon-clock"></use>
           </svg>
           <span class="recipe__info-data recipe__info-data--minutes">${
-            this.#data.cookingTime
+            this._data.cookingTime
           }</span>
           <span class="recipe__info-text">minutes</span>
         </div>
@@ -46,7 +36,7 @@ class RecipeView {
             <use href="${icons}#icon-users"></use>
           </svg>
           <span class="recipe__info-data recipe__info-data--people">${
-            this.#data.servings
+            this._data.servings
           }</span>
           <span class="recipe__info-text">servings</span>
 
@@ -80,7 +70,7 @@ class RecipeView {
         <h2 class="heading--2">Recipe ingredients</h2>
         <ul class="recipe__ingredient-list">
 
-          ${this.#data.ingredients.map(this.#generateMarkupIngredient).join('')}
+          ${this._data.ingredients.map(this._generateMarkupIngredient).join('')}
           <li class="recipe__ingredient">
             <svg class="recipe__icon">
               <use href="${icons}#icon-check"></use>
@@ -100,13 +90,13 @@ class RecipeView {
         <p class="recipe__directions-text">
           This recipe was carefully designed and tested by
           <span class="recipe__publisher">${
-            this.#data.publisher
+            this._data.publisher
           }</span>. Please check out
           directions at their website.
         </p>
         <a
           class="btn--small recipe__btn"
-          href="${this.#data.sourceUrl}"
+          href="${this._data.sourceUrl}"
           target="_blank"
         >
           <span>Directions</span>
@@ -117,7 +107,7 @@ class RecipeView {
       </div>`;
   }
 
-  #generateMarkupIngredient(ing) {
+  _generateMarkupIngredient(ing) {
     return `
               <li class="recipe__ingredient">
                 <svg class="recipe__icon">
@@ -133,47 +123,6 @@ class RecipeView {
                   ${ing.description}
                 </div>
               </li>`;
-  }
-
-  renderSpinner() {
-    const markup = `<div class="spinner">
-      <svg>
-        <use href="${icons}#icon-loader"></use>
-      </svg>
-    </div> `;
-
-    this.#clear();
-    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
-  }
-
-  renderError(message = this.#errorMessage) {
-    const markup = `
-    <div class="error">
-      <div>
-        <svg>
-          <use href="${icons}#icon-alert-triangle"></use>
-        </svg>
-      </div>
-      <p>${message}</p>
-    </div>`;
-
-    this.#clear();
-    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
-  }
-
-  renderMessage(message = this.#message) {
-    const markup = `
-    <div class="message">
-      <div>
-        <svg>
-          <use href="${icons}#icon-smile"></use>
-        </svg>
-      </div>
-      <p>${message}</p>
-    </div>`;
-
-    this.#clear();
-    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
   addHandlerRender(handler) {
