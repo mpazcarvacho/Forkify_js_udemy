@@ -1,5 +1,5 @@
 import { async } from 'regenerator-runtime';
-import { API_URL } from './config.js';
+import { API_URL, RES_PER_PAGE } from './config.js';
 import { getJSON } from './helpers.js';
 
 export const state = {
@@ -7,6 +7,8 @@ export const state = {
   search: {
     query: '',
     results: [],
+    resultsPerPage: RES_PER_PAGE,
+    page: 1,
   },
 };
 
@@ -51,4 +53,13 @@ export const loadSearchResults = async function (query) {
     throw err;
     console.error(`${err} in searching`);
   }
+};
+
+export const getSearchResultsPage = function (page = state.search.page) {
+  //read in to the state and get the data for the page that is being requested
+  state.search.page = page;
+  const start = (page - 1) * RES_PER_PAGE;
+  const end = page * RES_PER_PAGE; //slice doesn't include the last value so it will go to 9 for the first page, which is what we want.
+
+  return state.search.results.slice(start, end);
 };
