@@ -7,7 +7,7 @@ import paginationView from './views/paginationView.js';
 import 'core-js/stable'; //polyfilling
 import 'regenerator-runtime/runtime'; //polyfilling
 
-//parcel code
+// parcel code
 // if (module.hot) {
 //   module.hot.accept();
 // }
@@ -58,10 +58,16 @@ const controlSearchResults = async function () {
     console.log(err);
   }
 };
+
+const controlPagination = function (goToPage) {
+  resultsView.render(model.getSearchResultsPage(goToPage));
+  paginationView.render(model.state.search);
+};
 //Publisher subscriber pattern
 const init = function () {
   recipeView.addHandlerRender(controlRecipes);
   searchView.addHandlerSearch(controlSearchResults);
+  paginationView.addHandlerClick(controlPagination);
 };
 
 init();
