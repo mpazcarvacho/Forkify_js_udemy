@@ -14,6 +14,26 @@ export default class View {
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
+  update(data) {
+    if (!data || (Array.isArray(data) && data.length === 0))
+      return this.renderError();
+
+    this._data = data;
+    //Compare new markup with old markup and only then render only changes
+    const newMarkup = this._generateMarkup();
+
+    //Convert this string into a DOM element than can be compared with actual Dom. It will become a virtual dom , that is not on the page but is allocated in memory-
+
+    const newDOM = document.createRange().createContextualFragment(newMarkup);
+    const newElements = Array.from(newDOM.querySelectorAll('*'));
+    const curElements = Array.from(this._parentElement.querySelectorAll('*'));
+
+    newElements.forEach((newEl, i) => {
+      const curEl = curElements[i];
+      console.log(curEl, newEl.isEqualNode(curEl));
+    });
+  }
+
   _clear() {
     this._parentElement.innerHTML = '';
   }

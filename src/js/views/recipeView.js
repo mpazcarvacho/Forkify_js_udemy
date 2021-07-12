@@ -123,7 +123,7 @@ class RecipeView extends View {
                 </svg>
                 <div class="recipe__quantity">${
                   ing.quantity
-                    ? new Fraction(ing.quantity.toString()) //Issue with fractions e.g. (67/100) should be 1/3
+                    ? new Fraction(ing.quantity.toString()) //Issue with fractions e.g. (67/100) should be 1/3 #BUG
                     : ''
                 }</div>
                 <div class="recipe__description">

@@ -68,7 +68,8 @@ const controlServings = function (newServings) {
   //Update the recipe servings(in state)
   model.updateServings(newServings);
   //Update the recipe view
-  recipeView.render(model.state.recipe);
+  // recipeView.render(model.state.recipe);
+  recipeView.update(model.state.recipe);
 };
 
 //Publisher subscriber pattern
