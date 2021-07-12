@@ -28,6 +28,7 @@ export const loadRecipe = async function (id) {
       servings: recipe.servings,
       cookingTime: recipe.cooking_time,
       ingredients: recipe.ingredients,
+      //Each ingredient is an object with quantity, unit, description.
     };
 
     // console.log(state.recipe, data);
@@ -62,4 +63,12 @@ export const getSearchResultsPage = function (page = state.search.page) {
   const end = page * RES_PER_PAGE; //slice doesn't include the last value so it will go to 9 for the first page, which is what we want.
 
   return state.search.results.slice(start, end);
+};
+
+export const updateServings = function (newServings) {
+  state.recipe.ingredients.forEach(ing => {
+    //new quantity newQt = oldQt * newServings /oldServings
+    ing.quantity = (ing.quantity * newServings) / state.recipe.servings;
+  });
+  state.recipe.servings = newServings;
 };
