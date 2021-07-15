@@ -27,6 +27,8 @@ const controlRecipes = async function () {
 
     //0 - Update results view to mark selected search result
     resultsView.update(model.getSearchResultsPage());
+
+    //updating bookmarks view
     bookmarksView.update(model.state.bookmarks);
 
     //1 Loading recipe
@@ -39,6 +41,7 @@ const controlRecipes = async function () {
     //const recipeView = new recipeView(model.state.recipe) This could be done too but the above is cleaner.
   } catch (err) {
     recipeView.renderError();
+    console.error(err);
   }
 };
 
@@ -88,8 +91,13 @@ const controlAddBookmark = function () {
   //Render bookmarks
   bookmarksView.render(model.state.bookmarks);
 };
+
+const controlBookmarks = function () {
+  bookmarksView.render(model.state.bookmarks);
+};
 //Publisher subscriber pattern
 const init = function () {
+  bookmarksView.addHandlerRender(controlBookmarks);
   recipeView.addHandlerRender(controlRecipes);
   recipeView.addHandlerUpdateServings(controlServings);
   recipeView.addHadlerAddBookmark(controlAddBookmark);
