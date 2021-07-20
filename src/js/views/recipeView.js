@@ -58,8 +58,12 @@ class RecipeView extends View {
           </div>
         </div>
 
-        <div class="recipe__user-generated">
+        <div class="recipe__user-generated ${this._data.key ? '' : 'hidden'}">
+          <svg>
+            <use href="${icons}#icon-user"></use>
+          </svg>
         </div>
+
         <button class="btn--round btn--bookmark">
           <svg class="">
             <use href="${icons}#icon-bookmark${
@@ -111,11 +115,6 @@ class RecipeView extends View {
 
     // icon-bookmark-fill
     //USER div icon
-    //   <div class="recipe__user-generated">
-    //   <svg>
-    //     <use href="${icons}#icon-user"></use>
-    //   </svg>
-    // </div>
   }
 
   _generateMarkupIngredient(ing) {
