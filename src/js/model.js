@@ -26,6 +26,7 @@ const createRecipeObject = function (data) {
     servings: recipe.servings,
     cookingTime: recipe.cooking_time,
     ingredients: recipe.ingredients,
+    ...(recipe.key && { key: recipe.key }),
     //Each ingredient is an object with quantity, unit, description.
   };
 };
@@ -151,6 +152,7 @@ export const uploadRecipe = async function (newRecipe) {
     );
     console.log(data);
     state.recipe = createRecipeObject(data);
+    addBookmark(state.recipe);
   } catch (err) {
     throw err;
   }

@@ -9,6 +9,7 @@ import AddRecipeView from './views/addRecipeView.js';
 import 'core-js/stable'; //polyfilling
 import 'regenerator-runtime/runtime'; //polyfilling
 import addRecipeView from './views/addRecipeView.js';
+import { MODAL_CLOSE_SEC } from './config.js';
 
 // parcel code
 // if (module.hot) {
@@ -100,9 +101,29 @@ const controlBookmarks = function () {
 
 const controlAddRecipe = async function (newRecipe) {
   try {
+    //Render spinner
+    addRecipeView.renderSpinner();
+
     //Upload new recipe data.
     await model.uploadRecipe(newRecipe);
     console.log(model.state.recipe);
+
+    //Render recipe
+    recipeView.render(model.state.recipe);
+
+    //Render success message
+    addRecipeView.renderMessage();
+
+    //Render bookmark view
+    bookmarksView.render(model.state.bookmarks);
+
+    //Change the id in the url. PUsh state allows us to change the url without reloading the page. it akes 3 arguments
+    window.history.pushState(null, '', `#${model.state.recipe.id}`);
+
+    //Close form window
+    setTimeout(function () {
+      addRecipeView.toggleWindow();
+    }, MODAL_CLOSE_SEC * 1000);
   } catch (err) {
     console.error('💥', err);
     // addRecipeView.renderError(err.message);
