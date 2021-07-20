@@ -1,6 +1,6 @@
 import { async } from 'regenerator-runtime';
 import { API_URL, RES_PER_PAGE, KEY } from './config.js';
-import { getJSON, sendJSON } from './helpers.js';
+import { AJAX, AJAX } from './helpers.js';
 
 export const state = {
   recipe: {},
@@ -35,7 +35,7 @@ const createRecipeObject = function (data) {
 export const loadRecipe = async function (id) {
   //This function does not return anything, all it will do is to change the state object, which will then contain the recipe and onto which then the controller will then grab and take the recipe out of there. This will work because there is a live connection between the import and the exports.
   try {
-    const data = await getJSON(`${API_URL}/${id}`);
+    const data = await AJAX(`${API_URL}/${id}`);
 
     state.recipe = createRecipeObject(data);
 
@@ -53,7 +53,7 @@ export const loadRecipe = async function (id) {
 export const loadSearchResults = async function (query) {
   try {
     state.search.query = query;
-    const data = await getJSON(`${API_URL}?search=${query}`);
+    const data = await AJAX(`${API_URL}?search=${query}`);
 
     state.search.results = data.data.recipes.map(rec => {
       return {
@@ -146,7 +146,7 @@ export const uploadRecipe = async function (newRecipe) {
       ingredients,
     };
 
-    const data = await sendJSON(
+    const data = await AJAX(
       `${API_URL}?search=${recipe.title}&key=${KEY}`,
       recipe
     );
