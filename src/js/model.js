@@ -1,5 +1,5 @@
 import { async } from 'regenerator-runtime';
-import { API_URL, RES_PER_PAGE } from './config.js';
+import { API_URL, RES_PER_PAGE, KEY } from './config.js';
 import { getJSON, sendJSON } from './helpers.js';
 
 export const state = {
@@ -13,29 +13,36 @@ export const state = {
   bookmarks: [],
 };
 
+const createRecipeObject = function (data) {
+  const { recipe } = data.data;
+  console.log(recipe);
+
+  return {
+    id: recipe.id,
+    title: recipe.title,
+    publisher: recipe.publisher,
+    sourceUrl: recipe.source_url,
+    image: recipe.image_url,
+    servings: recipe.servings,
+    cookingTime: recipe.cooking_time,
+    ingredients: recipe.ingredients,
+    //Each ingredient is an object with quantity, unit, description.
+  };
+};
+
 //Responsible for fetching the recipe data from the forkify API
 export const loadRecipe = async function (id) {
   //This function does not return anything, all it will do is to change the state object, which will then contain the recipe and onto which then the controller will then grab and take the recipe out of there. This will work because there is a live connection between the import and the exports.
   try {
     const data = await getJSON(`${API_URL}/${id}`);
-    const { recipe } = data;
 
-    state.recipe = {
-      id: recipe.id,
-      title: recipe.title,
-      publisher: recipe.publisher,
-      sourceUrl: recipe.source_url,
-      image: recipe.image_url,
-      servings: recipe.servings,
-      cookingTime: recipe.cooking_time,
-      ingredients: recipe.ingredients,
-      //Each ingredient is an object with quantity, unit, description.
-    };
+    state.recipe = createRecipeObject(data);
 
     if (state.bookmarks.some(bookmark => bookmark.id === id))
       state.recipe.bookmarked = true;
     else state.recipe.bookmarked = false;
 
+    console.log(state.recipe);
     // console.log(state.recipe, data);
   } catch (err) {
     throw err; //error propagated from getJSON and to renderError() method.
@@ -47,7 +54,7 @@ export const loadSearchResults = async function (query) {
     state.search.query = query;
     const data = await getJSON(`${API_URL}?search=${query}`);
 
-    state.search.results = data.recipes.map(rec => {
+    state.search.results = data.data.recipes.map(rec => {
       return {
         id: rec.id,
         title: rec.title,
@@ -118,6 +125,7 @@ export const uploadRecipe = async function (newRecipe) {
       .filter(entry => entry[0].startsWith('ingredient') && entry[1] !== '')
       .map(ing => {
         const ingArr = ing[1].replaceAll(' ', '').split(',');
+
         if (ingArr.length !== 3)
           throw new Error(
             'Wrong ingredient format! Please use the correct format'
@@ -126,7 +134,6 @@ export const uploadRecipe = async function (newRecipe) {
         const [quantity, unit, description] = ingArr;
         return { quantity: quantity ? +quantity : null, unit, description };
       });
-    console.log(ingredients);
 
     const recipe = {
       title: newRecipe.title,
@@ -137,7 +144,13 @@ export const uploadRecipe = async function (newRecipe) {
       servings: +newRecipe.servings,
       ingredients,
     };
-    console.log(recipe);
+
+    const data = await sendJSON(
+      `${API_URL}?search=${recipe.title}&key=${KEY}`,
+      recipe
+    );
+    console.log(data);
+    state.recipe = createRecipeObject(data);
   } catch (err) {
     throw err;
   }
