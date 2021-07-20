@@ -98,11 +98,15 @@ const controlBookmarks = function () {
   bookmarksView.render(model.state.bookmarks);
 };
 
-const controlAddRecipe = function (newRecipe) {
+const controlAddRecipe = async function (newRecipe) {
   console.log(newRecipe);
-
-  //Upload new recipe data.
-  model.uploadRecipe(newRecipe);
+  try {
+    //Upload new recipe data.
+    await model.uploadRecipe(newRecipe);
+  } catch (err) {
+    console.error('💥', err);
+    addRecipeView.renderError(err.message);
+  }
 };
 
 //Publisher subscriber pattern
