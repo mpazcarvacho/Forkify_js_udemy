@@ -15,7 +15,6 @@ export const state = {
 
 const createRecipeObject = function (data) {
   const { recipe } = data.data;
-  console.log(recipe);
 
   return {
     id: recipe.id,
@@ -42,9 +41,6 @@ export const loadRecipe = async function (id) {
     if (state.bookmarks.some(bookmark => bookmark.id === id))
       state.recipe.bookmarked = true;
     else state.recipe.bookmarked = false;
-
-    console.log(state.recipe);
-    // console.log(state.recipe, data);
   } catch (err) {
     throw err; //error propagated from getJSON and to renderError() method.
   }
@@ -61,6 +57,7 @@ export const loadSearchResults = async function (query) {
         title: rec.title,
         publisher: rec.publisher,
         image: rec.image_url,
+        ...(rec.key && { key: rec.key }),
       };
     });
     state.search.page = 1;
@@ -125,7 +122,7 @@ export const uploadRecipe = async function (newRecipe) {
     const ingredients = Object.entries(newRecipe)
       .filter(entry => entry[0].startsWith('ingredient') && entry[1] !== '')
       .map(ing => {
-        const ingArr = ing[1].replaceAll(' ', '').split(',');
+        const ingArr = ing[1].split(',').map(el => el.trim());
 
         if (ingArr.length !== 3)
           throw new Error(
@@ -150,7 +147,7 @@ export const uploadRecipe = async function (newRecipe) {
       `${API_URL}?search=${recipe.title}&key=${KEY}`,
       recipe
     );
-    console.log(data);
+
     state.recipe = createRecipeObject(data);
     addBookmark(state.recipe);
   } catch (err) {

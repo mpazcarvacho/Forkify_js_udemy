@@ -5,6 +5,7 @@ import resultsView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
 import bookmarksView from './views/bookmarksView.js';
 import AddRecipeView from './views/addRecipeView.js';
+import navView from './views/navView.js';
 
 import 'core-js/stable'; //polyfilling
 import 'regenerator-runtime/runtime'; //polyfilling
@@ -130,8 +131,13 @@ const controlAddRecipe = async function (newRecipe) {
   }
 };
 
+const controlNavIcons = function () {
+  navView.render();
+};
+
 //Publisher subscriber pattern
 const init = function () {
+  navView.render();
   bookmarksView.addHandlerRender(controlBookmarks);
   recipeView.addHandlerRender(controlRecipes);
   recipeView.addHandlerUpdateServings(controlServings);
