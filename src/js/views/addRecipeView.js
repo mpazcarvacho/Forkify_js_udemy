@@ -31,6 +31,7 @@ class AddRecipeView extends View {
   }
 
   addHandlerUpload(handler) {
+    console.log('here');
     this._parentElement.addEventListener('submit', function (e) {
       e.preventDefault();
       const dataArr = [...new FormData(this)];

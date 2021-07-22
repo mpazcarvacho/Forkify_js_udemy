@@ -4,7 +4,7 @@ import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
 import bookmarksView from './views/bookmarksView.js';
-import AddRecipeView from './views/addRecipeView.js';
+// import AddRecipeView from './views/addRecipeView.js';
 import navView from './views/navView.js';
 
 import 'core-js/stable'; //polyfilling
@@ -129,10 +129,6 @@ const controlAddRecipe = async function (newRecipe) {
     console.error('💥', err);
     // addRecipeView.renderError(err.message);
   }
-};
-
-const controlNavIcons = function () {
-  navView.render();
 };
 
 //Publisher subscriber pattern
