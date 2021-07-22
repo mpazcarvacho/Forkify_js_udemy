@@ -4,13 +4,13 @@ import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
 import bookmarksView from './views/bookmarksView.js';
-// import AddRecipeView from './views/addRecipeView.js';
+import addRecipeView from './views/addRecipeView.js';
 import navView from './views/navView.js';
+import { MODAL_CLOSE_SEC } from './config.js';
+import groceriesView from './views/groceriesView.js';
 
 import 'core-js/stable'; //polyfilling
 import 'regenerator-runtime/runtime'; //polyfilling
-import addRecipeView from './views/addRecipeView.js';
-import { MODAL_CLOSE_SEC } from './config.js';
 
 // parcel code
 // if (module.hot) {
@@ -131,6 +131,17 @@ const controlAddRecipe = async function (newRecipe) {
   }
 };
 
+const controlGroceries = function () {
+  console.log('clicked here ');
+
+  //1. Render Spinner
+  groceriesView.renderSpinner();
+
+  //2. Get data from model.state.bookmarks #TODO
+  console.log('im here');
+  groceriesView.render(model.state);
+};
+
 //Publisher subscriber pattern
 const init = function () {
   navView.render();
@@ -141,6 +152,7 @@ const init = function () {
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
   addRecipeView.addHandlerUpload(controlAddRecipe);
+  groceriesView.addHandlerRender(controlGroceries);
 };
 
 init();
