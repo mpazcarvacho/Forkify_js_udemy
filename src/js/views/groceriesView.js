@@ -12,14 +12,31 @@ class GroceriesView extends View {
   _generateMarkup() {
     // this._data.bookmarks.forEach(b => b.ingredients.forEach((i)=>));
     let markup = '';
+    let ingArr = [];
+    let unitArr = [];
+    let qtyArr = [];
 
-    // console.log(this._data.bookmarks.ingredients[i].description);
+    //1. Check if there are duplicated elements and if units are the same. If so, add up those quantities. ?should add recipes for which those ing will be for. #HERE #TODO
     for (let b = 0; b < this._data.bookmarks.length; b++) {
       for (let i = 0; i < this._data.bookmarks[b].ingredients.length; i++) {
-        markup += `<p></p>Recipe is ${this._data.bookmarks[b].title} and ingredient is : ${this._data.bookmarks[b].ingredients[i].description}</p>`;
+        if (
+          ingArr.includes(this._data.bookmarks[b].ingredients[i].description) &&
+          unitArr[
+            ingArr.indexOf(this._data.bookmarks[b].ingredients[i].description)
+          ] === this._data.bookmarks[b].ingredients[i].unit
+        )
+          console.log(
+            `Duplicated element is ${this._data.bookmarks[b].ingredients[i].description}`
+          );
+        ingArr.push(this._data.bookmarks[b].ingredients[i].description);
+        unitArr.push(this._data.bookmarks[b].ingredients[i].unit);
+        qtyArr.push(this._data.bookmarks[b].ingredients[i].quantity);
+
+        markup += `<p></p>Recipe is ${this._data.bookmarks[b].title} and ingredient is : ${this._data.bookmarks[b].ingredients[i].description}. Unit: ${this._data.bookmarks[b].ingredients[i].unit}</p>`;
       }
     }
 
+    console.log(ingArr);
     return markup;
 
     //add check to prevent duplicated ingredients, get qty sum if so. Add qty and units. Add title of the recipe ingredients are for, maybe the preview image too. #TODO
