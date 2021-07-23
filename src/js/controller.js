@@ -132,13 +132,11 @@ const controlAddRecipe = async function (newRecipe) {
 };
 
 const controlGroceries = function () {
-  console.log('clicked here ');
-
   //1. Render Spinner
   groceriesView.renderSpinner();
 
   //2. Get data from model.state.bookmarks #TODO
-  console.log('im here');
+
   groceriesView.render(model.state);
 };
 
