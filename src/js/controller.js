@@ -136,7 +136,6 @@ const controlGroceries = function () {
   groceriesView.renderSpinner();
 
   //2. Get data from model.state.bookmarks #TODO
-
   groceriesView.render(model.state);
 };
 
