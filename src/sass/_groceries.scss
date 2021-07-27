@@ -1,0 +1,12 @@
+.table {
+  background-color: #f9f5f3;
+  &__head {
+    background-image: linear-gradient(to right bottom, #fbdb89, #f48982);
+    color: white;
+    width: 20%;
+  }
+
+  &__header {
+    font-size: 5rem;
+  }
+}

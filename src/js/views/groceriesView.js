@@ -15,6 +15,9 @@ class GroceriesView extends View {
     for (let i = 0; i < ingUnique[0].length; i++) {
       markup += `
         <tr>
+          <td id="checkbox">
+            <input type="checkbox" id="cb-${i}" name="ingredients"></input>
+          </td>
           <td>${i + 1}</td>
           <td>${ingUnique[0][i]}</td>
           <td>${ingUnique[1][i]}</td>
@@ -22,14 +25,14 @@ class GroceriesView extends View {
           <td>
           ${ingUnique[3][i].map(image => {
             return `
+            <span>
               <a class="table__link" href="#${ingUnique[5][i]}">
                 <figure class="table__fig">
                   <img src="${image}" crossorigin alt="${ingUnique[4][i]}" />
-                </figure>
+                </figure></span>
               `;
           })}
-            
-            </td>
+          </td>
         </tr>
         `;
     }
@@ -44,9 +47,10 @@ class GroceriesView extends View {
 
     const markup = `
       <table class= "table">
-        <thead>
+        <thead class="table__head">
           <tr>
-            <th>#</th>
+            <th></th>
+            <th class="table__header">#</th>
             <th>Ingredient</th>
             <th>Unit</th>
             <th>Qty</th>
