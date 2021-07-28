@@ -12,22 +12,33 @@ class GroceriesView extends View {
   _generateMarkupIngs(ingUnique) {
     let markup = '';
 
+    //#TODO
+    // Make every uneven row get another background color
+    // get ingredients first letter to uppercase
+    //Add delete ingredient button
+    //Add sorting ingredients alphabetically
+    // Add button to print / export list to pdf
+    //make sure bookmark deleted are deleted from local storage (can't remember..)
+
     for (let i = 0; i < ingUnique[0].length; i++) {
       markup += `
-        <tr>
-          <td id="checkbox">
-            <input type="checkbox" id="cb-${i}" name="ingredients"></input>
+        <tr class="table__rows">
+          <td id="checkbox" class="table__rows_single">
+          <input class="checkbox" type="checkbox" id="cb-${i}" name="ingredients"></input>
+          <label>${i + 1}</label>
           </td>
-          <td>${i + 1}</td>
-          <td>${ingUnique[0][i]}</td>
-          <td>${ingUnique[1][i]}</td>
-          <td>${ingUnique[2][i] ? ingUnique[2][i] : ''}</td>
-          <td>
+          
+          <td class="table__rows_single">${ingUnique[0][i]}</td>
+          <td class="table__rows_single">${ingUnique[1][i]}</td>
+          <td class="table__rows_single">${
+            ingUnique[2][i] ? ingUnique[2][i] : ''
+          }</td>
+          <td class="table__rows_single">
           ${ingUnique[3][i].map(image => {
             return `
             <span>
-              <a class="table__link" href="#${ingUnique[5][i]}">
-                <figure class="table__fig">
+              <a class="table-image__link" href="#${ingUnique[5][i]}">
+                <figure class="table-image__fig">
                   <img src="${image}" crossorigin alt="${ingUnique[4][i]}" />
                 </figure></span>
               `;
@@ -37,6 +48,7 @@ class GroceriesView extends View {
         `;
     }
 
+    // <td>${i + 1}</td>
     return markup;
   }
   _generateMarkup() {
@@ -48,13 +60,12 @@ class GroceriesView extends View {
     const markup = `
       <table class= "table">
         <thead class="table__head">
-          <tr>
-            <th></th>
-            <th class="table__header">#</th>
-            <th>Ingredient</th>
-            <th>Unit</th>
-            <th>Qty</th>
-            <th>Recipes</th>
+          <tr class="table__header">
+            <th class= "table__header__col">#</th>
+            <th class= "table__header__col">Ingredient</th>
+            <th class= "table__header__col">Unit</th>
+            <th class= "table__header__col">Qty</th>
+            <th class= "table__header__col">Recipes</th>
           </tr>
         </thead>
         <tbody>
