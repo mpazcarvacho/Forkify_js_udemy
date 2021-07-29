@@ -16,8 +16,6 @@ class NavView {
       <span>Search</span>
     `;
 
-    console.log(this.#editIcon);
-
     this.#editIcon.innerHTML = `<use href="${icons}#icon-edit"></use>`;
     this.#cartIcon.innerHTML = `<use href="${cartIcon}#icon-cart"></use>`;
     this.#bookmarkIcon.innerHTML = `<use href="${icons}#icon-bookmark"></use>`;

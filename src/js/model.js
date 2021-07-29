@@ -11,7 +11,7 @@ export const state = {
     page: 1,
   },
   bookmarks: [],
-  groceries: [],
+  groceries: {},
 };
 
 const createRecipeObject = function (data) {
@@ -156,21 +156,62 @@ export const uploadRecipe = async function (newRecipe) {
   }
 };
 
-export const setGroceries = function () {
+export const setGroceries = async function () {
+  //Adds to state a unique ingredients to then be rendered in the GroceriesView
+
+  //Arrays to fill and then add to state.
+  let ingArr = [],
+    unitArr = [],
+    qtyArr = [],
+    imageArr = [],
+    recipeArr = [],
+    idArr = [];
+
   // Refactor setdata function in groceriesView #TODO
   //Go through every ingredient in every bookmark
   for (let b = 0; b < state.bookmarks.length; b++) {
     for (let i = 0; i < state.bookmarks[b].ingredients.length; i++) {
-      const newGroceriesItem = {
-        ingredient: '',
-        unit: '',
-        qty: '',
-        images: [],
-        recipeTitles: [],
-        id: '',
-      };
-      //Set groceries in state
-      state.groceries.push(newGroceriesItem);
+      const ingDescriptionCur = state.bookmarks[b].ingredients[i].description;
+      const unitCur = state.bookmarks[b].ingredients[i].unit;
+      const qtyCur = state.bookmarks[b].ingredients[i].quantity;
+      const imageCur = state.bookmarks[b].image;
+      const recipeTitleCur = state.bookmarks[b].title;
+      const idCur = state.bookmarks[b].id;
+      const curIndex = ingArr.indexOf(ingDescriptionCur);
+
+      //If ingredient is duplicated and their units arre the same, add their quantities up
+      if (ingArr.includes(ingDescriptionCur) && unitArr[curIndex] === unitCur) {
+        qtyArr[ingArr.indexOf(ingDescriptionCur)] += qtyCur;
+
+        //Since the ingredient is duplicated, it may come from another recipe. Add recipe image only if they're not the same.
+        if (imageCur != imageArr[curIndex]) {
+          //Different recipes for equal ingredients. Add new elements to arrays. !! push array or single element ?? #TODO
+          imageArr[ingArr.indexOf(ingDescriptionCur)].push(imageCur);
+          recipeArr[ingArr.indexOf(ingDescriptionCur)].push(recipeTitleCur);
+          idArr[ingArr.indexOf(ingDescriptionCur)].push(idCur);
+        }
+      } else {
+        //Push unique elements into arrays.
+        ingArr.push(ingDescriptionCur);
+        unitArr.push(unitCur);
+        qtyArr.push(qtyCur);
+        imageArr.push([imageCur]);
+        recipeArr.push([recipeTitleCur]);
+        idArr.push([idCur]);
+      }
     }
   }
+
+  //After finigshing looping, set arrays into state.
+  const newGroceriesItem = {
+    ingredient: ingArr,
+    unit: unitArr,
+    qty: qtyArr,
+    images: imageArr,
+    recipeTitles: recipeArr,
+    ids: idArr,
+  };
+  //Set groceries in state
+  state.groceries = newGroceriesItem;
+  // console.log(state.groceries);
 };

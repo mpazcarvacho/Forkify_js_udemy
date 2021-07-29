@@ -131,12 +131,17 @@ const controlAddRecipe = async function (newRecipe) {
   }
 };
 
+const controlSetGroceries = async function () {
+  //Get groceries from bookmarks and store them into state.
+  await model.setGroceries();
+};
+
 const controlGroceries = function () {
   //1. Render Spinner
   groceriesView.renderSpinner();
 
   //2. Get data from model.state.bookmarks #TODO
-  groceriesView.render(model.state);
+  groceriesView.render(model.state.groceries);
 };
 
 //Publisher subscriber pattern
@@ -149,7 +154,18 @@ const init = function () {
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
   addRecipeView.addHandlerUpload(controlAddRecipe);
-  groceriesView.addHandlerRender(controlGroceries);
+  groceriesView.addHandlerRender(controlSetGroceries);
+  groceriesView.addHandlerClick(controlGroceries);
 };
 
 init();
+
+//#TODO
+// Make every uneven row get another background color #DONE
+//Customize checkbox #DONE
+//Refactor _SetData method on groceriesView to model. #DONE
+// get ingredients first letter to uppercase
+//Add delete ingredient button
+//Add sorting ingredients alphabetically
+// Add button to print / export list to pdf
+//make sure bookmark deleted are deleted from local storage (can't remember..)
