@@ -11,6 +11,7 @@ export const state = {
     page: 1,
   },
   bookmarks: [],
+  groceries: [],
 };
 
 const createRecipeObject = function (data) {
@@ -154,3 +155,5 @@ export const uploadRecipe = async function (newRecipe) {
     throw err;
   }
 };
+
+export const setGroceries = function () {};

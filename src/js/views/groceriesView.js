@@ -13,7 +13,8 @@ class GroceriesView extends View {
     let markup = '';
 
     //#TODO
-    // Make every uneven row get another background color
+    // Make every uneven row get another background color #DONE
+    //Customize checkbox #DONE
     // get ingredients first letter to uppercase
     //Add delete ingredient button
     //Add sorting ingredients alphabetically
@@ -22,10 +23,12 @@ class GroceriesView extends View {
 
     for (let i = 0; i < ingUnique[0].length; i++) {
       markup += `
-        <tr class="table__rows">
-          <td id="checkbox" class="table__rows_single">
-          <input class="checkbox" type="checkbox" id="cb-${i}" name="ingredients"></input>
-          <label>${i + 1}</label>
+        <tr class="table__rows ${i % 2 === 0 ? 'table__rows_uneven' : ''}">
+        <td id="checkbox" class="table__rows_single">
+          <label class="orange-checkbox-container">${i + 1}
+            <input class="checkbox" type="checkbox" id="cb-${i}" name="ingredients"></input>
+            <span class="checkmark"></span>
+          </label>
           </td>
           
           <td class="table__rows_single">${ingUnique[0][i]}</td>
@@ -142,26 +145,27 @@ class GroceriesView extends View {
             ].push([this._data.bookmarks[b].id]);
           }
 
-          // console.log(
-          //   `Duplicated element is ${
-          //     this._data.bookmarks[b].ingredients[i].description
-          //   } at ingArr index ${ingArr.indexOf(
-          //     this._data.bookmarks[b].ingredients[i].description
-          //   )} Qty is: ${
-          //     qtyArr[
-          //       ingArr.indexOf(
-          //         this._data.bookmarks[b].ingredients[i].description
-          //       )
-          //     ]
-          //   }`
-          // );
+          console.log(
+            `Duplicated element is ${
+              this._data.bookmarks[b].ingredients[i].description
+            } at ingArr index ${ingArr.indexOf(
+              this._data.bookmarks[b].ingredients[i].description
+            )} Qty is: ${
+              qtyArr[
+                ingArr.indexOf(
+                  this._data.bookmarks[b].ingredients[i].description
+                )
+              ]
+            }`
+          );
+        } else {
+          ingArr.push(this._data.bookmarks[b].ingredients[i].description);
+          unitArr.push(this._data.bookmarks[b].ingredients[i].unit);
+          qtyArr.push(this._data.bookmarks[b].ingredients[i].quantity);
+          imageArr.push([this._data.bookmarks[b].image]);
+          recipeArr.push([this._data.bookmarks[b].title]);
+          idArr.push([this._data.bookmarks[b].id]);
         }
-        ingArr.push(this._data.bookmarks[b].ingredients[i].description);
-        unitArr.push(this._data.bookmarks[b].ingredients[i].unit);
-        qtyArr.push(this._data.bookmarks[b].ingredients[i].quantity);
-        imageArr.push([this._data.bookmarks[b].image]);
-        recipeArr.push([this._data.bookmarks[b].title]);
-        idArr.push([this._data.bookmarks[b].id]);
 
         // console.log(this._data.bookmarks[b].title);
       }
