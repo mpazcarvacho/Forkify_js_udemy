@@ -156,4 +156,21 @@ export const uploadRecipe = async function (newRecipe) {
   }
 };
 
-export const setGroceries = function () {};
+export const setGroceries = function () {
+  // Refactor setdata function in groceriesView #TODO
+  //Go through every ingredient in every bookmark
+  for (let b = 0; b < state.bookmarks.length; b++) {
+    for (let i = 0; i < state.bookmarks[b].ingredients.length; i++) {
+      const newGroceriesItem = {
+        ingredient: '',
+        unit: '',
+        qty: '',
+        images: [],
+        recipeTitles: [],
+        id: '',
+      };
+      //Set groceries in state
+      state.groceries.push(newGroceriesItem);
+    }
+  }
+};
