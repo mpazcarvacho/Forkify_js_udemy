@@ -164,8 +164,11 @@ init();
 // Make every uneven row get another background color #DONE
 //Customize checkbox #DONE
 //Refactor _SetData method on groceriesView to model. #DONE
-// get ingredients first letter to uppercase
+// get ingredients first letter to uppercase #DONE
+//Make table scrollable #DONE
 //Add delete ingredient button
 //Add sorting ingredients alphabetically
 // Add button to print / export list to pdf
 //make sure bookmark deleted are deleted from local storage (can't remember..)
+//Add dading in transition to groceries list
+//highlight row when hovering them

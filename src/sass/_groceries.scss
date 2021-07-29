@@ -2,10 +2,14 @@
   background-color: #ffe8ddcb;
   border-collapse: collapse;
   margin: 2rem;
+  height: 60vh;
+  overflow-y: scroll;
+  display: block;
+
   &__head {
-    background-image: linear-gradient(to right bottom, #fbdb89, #f48982);
     color: white;
     width: 20%;
+    // position: sticky;
   }
 
   &__header {
@@ -13,6 +17,10 @@
 
     &__col {
       padding: 0 1em;
+      top: 0;
+      position: sticky;
+      background-image: linear-gradient(to right bottom, #fbdb89, #f48982);
+      z-index: 1;
     }
   }
 
@@ -22,6 +30,7 @@
     text-align: center;
     // margin: 0.2rem 2rem;
     vertical-align: middle;
+
     &_uneven {
       background-color: #f9f9f9;
     }

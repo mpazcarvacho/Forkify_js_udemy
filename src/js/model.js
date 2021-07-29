@@ -185,14 +185,20 @@ export const setGroceries = async function () {
 
         //Since the ingredient is duplicated, it may come from another recipe. Add recipe image only if they're not the same.
         if (imageCur != imageArr[curIndex]) {
-          //Different recipes for equal ingredients. Add new elements to arrays. !! push array or single element ?? #TODO
+          //Different recipes for equal ingredients. Add new elements to arrays.
           imageArr[ingArr.indexOf(ingDescriptionCur)].push(imageCur);
           recipeArr[ingArr.indexOf(ingDescriptionCur)].push(recipeTitleCur);
           idArr[ingArr.indexOf(ingDescriptionCur)].push(idCur);
         }
       } else {
         //Push unique elements into arrays.
-        ingArr.push(ingDescriptionCur);
+        ingArr.push(
+          `${ingDescriptionCur
+            .split('')
+            .splice(0, 1)
+            .join('')
+            .toUpperCase()}${ingDescriptionCur.split('').splice(1).join('')}`
+        );
         unitArr.push(unitCur);
         qtyArr.push(qtyCur);
         imageArr.push([imageCur]);

@@ -10,16 +10,6 @@ class GroceriesView extends View {
   _message = '';
 
   _generateMarkupIngs(data) {
-    //old structure: [ingArr, unitArr, qtyArr, imageArr, recipeArr, idArr]
-    //new structure:{
-    //   ingredient: ingArr,
-    //   unit: unitArr,
-    //   qty: qtyArr,
-    //   images: imageArr,
-    //   recipeTitles: recipeArr,
-    //   ids: idArr,
-    // }
-
     let markup = '';
 
     for (let i = 0; i < data.ingredient.length; i++) {
