@@ -166,6 +166,7 @@ init();
 //Refactor _SetData method on groceriesView to model. #DONE
 // get ingredients first letter to uppercase #DONE
 //Make table scrollable #DONE
+//Change table header background, avoid transparency #DONE
 //Add delete ingredient button
 //Add sorting ingredients alphabetically
 // Add button to print / export list to pdf
