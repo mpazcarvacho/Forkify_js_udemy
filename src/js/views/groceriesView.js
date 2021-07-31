@@ -59,15 +59,14 @@ class GroceriesView extends View {
       </tbody>
     </table>
     
-    <button class="btn groceries__btn">
+    <button class="btn groceries__btn" id="btn-remove-g">
       Remove ingredients
     </button>
-    <button class="btn groceries__btn">
+    <button class="btn groceries__btn" id="btn-pdf-g">
       Export to PDF
     </button>
     `;
 
-    console.log(markup);
     return markup;
   }
 
@@ -77,6 +76,14 @@ class GroceriesView extends View {
 
   addHandlerRender(handler) {
     window.addEventListener('load', handler);
+  }
+
+  addHandlerDelete(handler) {
+    document.querySelector('#btn-remove-g').addEventListener('click', handler);
+  }
+
+  addHandlerPdf(handler) {
+    document.querySelector('#btn-pdf-g').addEventListener('click', handler);
   }
 }
 

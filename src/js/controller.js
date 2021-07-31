@@ -142,7 +142,27 @@ const controlGroceries = function () {
 
   //2. Get data from model.state.bookmarks #TODO
   groceriesView.render(model.state.groceries);
+
+  //3 Add event listeners to buttons
+  groceriesView.addHandlerDelete(controlDeleteGroceries);
+  groceriesView.addHandlerPdf(controlPdfGroceries);
 };
+
+const controlDeleteGroceries = function () {
+  //1 - Check if there any rows selected to delete (checkboxes)
+  //rows not selected, display message "you need to select ingredients blabla"
+  // document.querySelectorAll();
+  //rows selected, delete from ingredients in model.
+  //Render groceries list again
+  const checkboxes = document.querySelectorAll('.checkbox');
+  const deleteData = [];
+  checkboxes.forEach(c => (c.checked ? deleteData.push(c.id.slice(-1)) : ''));
+  model.deleteIngredientsGroceries(deleteData);
+  // console.log(document.querySelectorAll('#btn-remove-g'));
+  // console.log(document.querySelectorAll('.checkbox'));
+};
+
+const controlPdfGroceries = function () {};
 
 //Publisher subscriber pattern
 const init = function () {

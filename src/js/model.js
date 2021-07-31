@@ -221,3 +221,26 @@ export const setGroceries = async function () {
   state.groceries = newGroceriesItem;
   // console.log(state.groceries);
 };
+
+export const deleteIngredientsGroceries = function (ingArray) {
+  console.log(ingArray);
+  // console.log(state.groceries);
+  const groceries = state.groceries;
+  const keys = Object.keys(groceries);
+  let delEl = [];
+  console.log(ingArray.length);
+  keys.forEach((key, index) =>
+    groceries[key].map((ing, i) => {
+      //USE INCLUDES I GUESS
+      for (let cbI = ingArray.length; cbI >= 0; cbI--) {
+        console.log(cbI);
+        if (+ingArray[cbI - 1] === i) {
+          console.log(ingArray[cbI - 1]);
+          console.log(`delete element with index ${i}`);
+        }
+        // console.log(`ingArray[cbI](${ingArray[cbI - 1]}===i(${i}))?`);
+      }
+    })
+  );
+  // console.log(keys);
+};
