@@ -180,7 +180,13 @@ export const setGroceries = async function () {
       const curIndex = ingArr.indexOf(ingDescriptionCur);
 
       //If ingredient is duplicated and their units arre the same, add their quantities up
+      console.log(ingArr);
+      console.log(ingDescriptionCur);
+      console.log(ingArr.includes(ingDescriptionCur));
+      console.log(unitArr[curIndex] === unitCur);
+
       if (ingArr.includes(ingDescriptionCur) && unitArr[curIndex] === unitCur) {
+        console.log(`Duplicated element is ${ingDescriptionCur}`);
         qtyArr[ingArr.indexOf(ingDescriptionCur)] += qtyCur;
 
         //Since the ingredient is duplicated, it may come from another recipe. Add recipe image only if they're not the same.
@@ -192,13 +198,7 @@ export const setGroceries = async function () {
         }
       } else {
         //Push unique elements into arrays.
-        ingArr.push(
-          `${ingDescriptionCur
-            .split('')
-            .splice(0, 1)
-            .join('')
-            .toUpperCase()}${ingDescriptionCur.split('').splice(1).join('')}`
-        );
+        ingArr.push(ingDescriptionCur);
         unitArr.push(unitCur);
         qtyArr.push(qtyCur);
         imageArr.push([imageCur]);
@@ -210,7 +210,12 @@ export const setGroceries = async function () {
 
   //After finigshing looping, set arrays into state.
   const newGroceriesItem = {
-    ingredient: ingArr,
+    ingredient: ingArr.map(i => {
+      return (
+        i.split('').splice(0, 1).join('').toUpperCase() +
+        i.split('').splice(1).join('')
+      );
+    }),
     unit: unitArr,
     qty: qtyArr,
     images: imageArr,
