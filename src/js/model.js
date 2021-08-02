@@ -180,13 +180,8 @@ export const setGroceries = async function () {
       const curIndex = ingArr.indexOf(ingDescriptionCur);
 
       //If ingredient is duplicated and their units arre the same, add their quantities up
-      console.log(ingArr);
-      console.log(ingDescriptionCur);
-      console.log(ingArr.includes(ingDescriptionCur));
-      console.log(unitArr[curIndex] === unitCur);
 
       if (ingArr.includes(ingDescriptionCur) && unitArr[curIndex] === unitCur) {
-        console.log(`Duplicated element is ${ingDescriptionCur}`);
         qtyArr[ingArr.indexOf(ingDescriptionCur)] += qtyCur;
 
         //Since the ingredient is duplicated, it may come from another recipe. Add recipe image only if they're not the same.
@@ -227,25 +222,12 @@ export const setGroceries = async function () {
   // console.log(state.groceries);
 };
 
-export const deleteIngredientsGroceries = function (ingArray) {
-  console.log(ingArray);
-  // console.log(state.groceries);
+export const deleteIngredientsGroceries = function (indexDeleteArray) {
   const groceries = state.groceries;
   const keys = Object.keys(groceries);
-  let delEl = [];
-  console.log(ingArray.length);
-  keys.forEach((key, index) =>
-    groceries[key].map((ing, i) => {
-      //USE INCLUDES I GUESS
-      for (let cbI = ingArray.length; cbI >= 0; cbI--) {
-        console.log(cbI);
-        if (+ingArray[cbI - 1] === i) {
-          console.log(ingArray[cbI - 1]);
-          console.log(`delete element with index ${i}`);
-        }
-        // console.log(`ingArray[cbI](${ingArray[cbI - 1]}===i(${i}))?`);
-      }
-    })
-  );
-  // console.log(keys);
+
+  //Remove elements from each array in state.groceries with higher index first
+  for (let cbI = indexDeleteArray.length - 1; cbI >= 0; cbI--) {
+    keys.forEach(key => groceries[key].splice(indexDeleteArray[cbI], 1));
+  }
 };

@@ -155,11 +155,22 @@ const controlDeleteGroceries = function () {
   //rows selected, delete from ingredients in model.
   //Render groceries list again
   const checkboxes = document.querySelectorAll('.checkbox');
+
   const deleteData = [];
-  checkboxes.forEach(c => (c.checked ? deleteData.push(c.id.slice(-1)) : ''));
+  checkboxes.forEach(c => {
+    // console.log(c.dataset.index);
+    // console.log(c.id);
+    return c.checked ? deleteData.push(c.dataset.index) : '';
+  });
+
+  // console.log(deleteData);
+
   model.deleteIngredientsGroceries(deleteData);
   // console.log(document.querySelectorAll('#btn-remove-g'));
   // console.log(document.querySelectorAll('.checkbox'));
+
+  groceriesView.updateRender();
+  controlGroceries();
 };
 
 const controlPdfGroceries = function () {};
@@ -187,7 +198,10 @@ init();
 // get ingredients first letter to uppercase #DONE
 //Make table scrollable #DONE
 //Change table header background, avoid transparency #DONE
+
+//Add data attribute to checkboxes with index value.
 //Add delete ingredient button
+
 //Add sorting ingredients alphabetically
 // Add button to print / export list to pdf
 //make sure bookmark deleted are deleted from local storage (can't remember..)

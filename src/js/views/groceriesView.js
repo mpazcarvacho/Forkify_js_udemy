@@ -17,7 +17,7 @@ class GroceriesView extends View {
         <tr class="table__rows ${i % 2 === 0 ? 'table__rows_uneven' : ''}">
           <td id="checkbox" class="table__rows_single">
             <label class="orange-checkbox-container">${i + 1}
-              <input class="checkbox" type="checkbox" id="cb-${i}" name="ingredients"></input>
+              <input class="checkbox" type="checkbox" id="cb-${i}" data-index="${i}" name="ingredients"></input>
               <span class="checkmark"></span>
             </label>
           </td>
@@ -68,6 +68,10 @@ class GroceriesView extends View {
     `;
 
     return markup;
+  }
+
+  updateRender() {
+    this._clear();
   }
 
   addHandlerClick(handler) {
