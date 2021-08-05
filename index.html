@@ -150,6 +150,28 @@
           </div>
           <p>Start by searching for a recipe or an ingredient. Have fun!</p>
         </div>
+        <div class="hidden groceries">
+          <div id="groceries-table">
+            <table class="table-sort table2">
+              <thead class="table__head">
+                <tr class="table__header">
+                  <th class="table__header__col">#</th>
+                  <th class="table__header__col">Ingredient</th>
+                  <th class="table__header__col">Unit</th>
+                  <th class="table__header__col">Qty</th>
+                  <th class="table__header__col">Recipes</th>
+                </tr>
+              </thead>
+              <tbody id="table-body"></tbody>
+            </table>
+          </div>
+          <button class="btn groceries__btn" id="btn-remove-g">
+            Remove ingredients
+          </button>
+          <button class="btn groceries__btn" id="btn-pdf-g">
+            Export to PDF
+          </button>
+        </div>
 
         <!-- <div class="spinner">
           <svg>

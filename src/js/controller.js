@@ -199,11 +199,12 @@ init();
 //Make table scrollable #DONE
 //Change table header background, avoid transparency #DONE
 
-//Add data attribute to checkboxes with index value.
-//Add delete ingredient button
+//Add data attribute to checkboxes with index value. #DONE
+//Add delete ingredient button #DONE
 
 //Add sorting ingredients alphabetically
 // Add button to print / export list to pdf
 //make sure bookmark deleted are deleted from local storage (can't remember..)
 //Add dading in transition to groceries list
 //highlight row when hovering them
+//make forkify logo take you home

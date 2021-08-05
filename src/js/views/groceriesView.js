@@ -1,19 +1,27 @@
 import View from './View.js';
 import previewView from './previewView.js';
 import icons from 'url:../../img/icons.svg';
+import 'table-sort-js/table-sort.js';
+import tableSortJs from 'table-sort-js/table-sort.js';
 
 class GroceriesView extends View {
-  _parentElement = document.querySelector('.recipe');
+  // _parentElement = document.querySelector('.table2');
+  _parentElement = document.querySelector('#table-body');
+  // _parentElement = document.querySelector('#groceries-table');
   _btnGroceries = document.querySelector('.nav__btn--groceries');
   _errorMessage =
     'No groceries added yet. Find a nice recipe and bookmark it ;)';
   _message = '';
 
-  _generateMarkupIngs(data) {
+  _generateMarkup(data) {
+    document.querySelector('.groceries').classList.remove('hidden');
+
+    // <table class="table-sort table2">
     let markup = '';
 
     for (let i = 0; i < data.ingredient.length; i++) {
       markup += `
+      
         <tr class="table__rows ${i % 2 === 0 ? 'table__rows_uneven' : ''}">
           <td id="checkbox" class="table__rows_single">
             <label class="orange-checkbox-container">${i + 1}
@@ -37,36 +45,11 @@ class GroceriesView extends View {
           })}
           </td>
         </tr>
+        
         `;
     }
 
-    return markup;
-  }
-  _generateMarkup(data) {
-    const markup = `
-    <table class= "table">
-      <thead class="table__head">
-        <tr class="table__header">
-          <th class= "table__header__col">#</th>
-          <th class= "table__header__col">Ingredient</th>
-          <th class= "table__header__col">Unit</th>
-          <th class= "table__header__col">Qty</th>
-          <th class= "table__header__col">Recipes</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${this._generateMarkupIngs(data)}
-      </tbody>
-    </table>
-    
-    <button class="btn groceries__btn" id="btn-remove-g">
-      Remove ingredients
-    </button>
-    <button class="btn groceries__btn" id="btn-pdf-g">
-      Export to PDF
-    </button>
-    `;
-
+    // </table>
     return markup;
   }
 
