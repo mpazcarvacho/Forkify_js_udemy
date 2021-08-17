@@ -107,7 +107,6 @@ const controlAddRecipe = async function (newRecipe) {
 
     //Upload new recipe data.
     await model.uploadRecipe(newRecipe);
-    console.log(model.state.recipe);
 
     //Render recipe
     recipeView.render(model.state.recipe);
@@ -173,7 +172,15 @@ const controlDeleteGroceries = function () {
   controlGroceries();
 };
 
-const controlPdfGroceries = function () {};
+const controlPdfGroceries = async function () {
+  //Create pdf with groceries list using html2pdf.
+
+  const doc = document.getElementById('pdf');
+  const docClone = doc.cloneNode(true);
+  docClone.style.height = 'max-content';
+
+  html2pdf().from(docClone).save();
+};
 
 //Publisher subscriber pattern
 const init = function () {
@@ -202,7 +209,7 @@ init();
 //Add data attribute to checkboxes with index value. #DONE
 //Add delete ingredient button #DONE
 
-//Add sorting ingredients alphabetically
+//Add sorting ingredients alphabetically #DONE
 // Add button to print / export list to pdf
 //make sure bookmark deleted are deleted from local storage (can't remember..)
 //Add dading in transition to groceries list

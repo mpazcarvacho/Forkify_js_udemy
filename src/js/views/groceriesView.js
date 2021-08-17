@@ -1,13 +1,11 @@
 import View from './View.js';
-import previewView from './previewView.js';
-import icons from 'url:../../img/icons.svg';
+// import previewView from './previewView.js';
+// import icons from 'url:../../img/icons.svg';
 import 'table-sort-js/table-sort.js';
 import tableSortJs from 'table-sort-js/table-sort.js';
 
 class GroceriesView extends View {
-  // _parentElement = document.querySelector('.table2');
   _parentElement = document.querySelector('#table-body');
-  // _parentElement = document.querySelector('#groceries-table');
   _btnGroceries = document.querySelector('.nav__btn--groceries');
   _errorMessage =
     'No groceries added yet. Find a nice recipe and bookmark it ;)';
@@ -15,8 +13,8 @@ class GroceriesView extends View {
 
   _generateMarkup(data) {
     document.querySelector('.groceries').classList.remove('hidden');
+    document.querySelector('.message')?.remove();
 
-    // <table class="table-sort table2">
     let markup = '';
 
     for (let i = 0; i < data.ingredient.length; i++) {
@@ -49,7 +47,6 @@ class GroceriesView extends View {
         `;
     }
 
-    // </table>
     return markup;
   }
 
