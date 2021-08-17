@@ -7,6 +7,7 @@ class NavView {
   #cartIcon = document.querySelector('#icon-cart');
   #bookmarkIcon = document.querySelector('#icon-bookmark');
   #smileIcon = document.querySelector('#icon-smile');
+  #logo = document.querySelector('#home-link');
 
   render() {
     this.#searchIcon.innerHTML = `
@@ -20,6 +21,10 @@ class NavView {
     this.#cartIcon.innerHTML = `<use href="${cartIcon}#icon-cart"></use>`;
     this.#bookmarkIcon.innerHTML = `<use href="${icons}#icon-bookmark"></use>`;
     this.#smileIcon.innerHTML = `<use href="${icons}#icon-smile"></use>`;
+  }
+
+  addHandlerHome(handler) {
+    this.#logo.addEventListener('click', handler);
   }
 }
 

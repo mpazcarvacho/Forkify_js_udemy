@@ -6,11 +6,16 @@ import View from './View.js'; //here the .js is not needed but is good for consi
 class RecipeView extends View {
   //Private properties. All the views will have these properties in common.
   //Inheritance of protected methods and properties doens't work yet qith Babel and Parcel, apparently. In that case we need to go back to the js convention to protect fields (_)
-  _parentElement = document.querySelector('.recipe');
+  _parentElement = document.querySelector('.recipe-main');
+
   _errorMessage = `We couldn't find that recipe. Plese try another one!`;
   _message = ``;
 
   _generateMarkup() {
+    this._parentElement.classList.remove('hidden');
+    document.querySelector('.message').classList.add('hidden');
+    document.querySelector('.groceries').classList.add('hidden');
+
     return `
       <figure class="recipe__fig">
         <img src="${this._data.image}" crossorigin alt="${
@@ -154,6 +159,12 @@ class RecipeView extends View {
       if (!btn) return;
       handler();
     });
+  }
+
+  renderHome() {
+    document.querySelector('.recipe-main').classList.add('hidden');
+    document.querySelector('.groceries').classList.add('hidden');
+    document.querySelector('.message').classList.remove('hidden');
   }
 }
 

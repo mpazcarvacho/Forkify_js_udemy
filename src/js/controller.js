@@ -182,9 +182,14 @@ const controlPdfGroceries = async function () {
   html2pdf().from(docClone).save();
 };
 
+const controlHome = function () {
+  recipeView.renderHome();
+};
+
 //Publisher subscriber pattern
 const init = function () {
   navView.render();
+  navView.addHandlerHome(controlHome);
   bookmarksView.addHandlerRender(controlBookmarks);
   recipeView.addHandlerRender(controlRecipes);
   recipeView.addHandlerUpdateServings(controlServings);
@@ -210,8 +215,8 @@ init();
 //Add delete ingredient button #DONE
 
 //Add sorting ingredients alphabetically #DONE
-// Add button to print / export list to pdf
-//make sure bookmark deleted are deleted from local storage (can't remember..)
-//Add dading in transition to groceries list
-//highlight row when hovering them
-//make forkify logo take you home
+// Add button to print / export list to pdf #DONE
+//make sure bookmark deleted are deleted from local storage (can't remember..) #DONE
+//Fix rendering groceries /recipes flow #DONE
+//make forkify logo take you home #DONE
+//Make the site responsive

@@ -19,7 +19,9 @@
   <body>
     <div class="container">
       <header class="header">
-        <img src="src/img/logo.png" alt="Logo" class="header__logo" />
+        <a id="home-link" href="#"
+          ><img src="src/img/logo.png" alt="Logo" class="header__logo"
+        /></a>
         <form class="search">
           <input
             type="text"
@@ -150,7 +152,8 @@
           </div>
           <p>Start by searching for a recipe or an ingredient. Have fun!</p>
         </div>
-        <div class="hidden groceries">
+        <div class="recipe-main hidden"></div>
+        <div class="hidden groceries" id="groceries">
           <div id="groceries-table">
             <table class="table-sort table" id="pdf">
               <thead class="table__head">

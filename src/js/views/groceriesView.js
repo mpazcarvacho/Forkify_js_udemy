@@ -12,8 +12,9 @@ class GroceriesView extends View {
   _message = '';
 
   _generateMarkup(data) {
+    document.querySelector('.recipe-main').classList.add('hidden');
+    document.querySelector('.message').classList.add('hidden');
     document.querySelector('.groceries').classList.remove('hidden');
-    document.querySelector('.message')?.remove();
 
     let markup = '';
 
@@ -68,6 +69,10 @@ class GroceriesView extends View {
 
   addHandlerPdf(handler) {
     document.querySelector('#btn-pdf-g').addEventListener('click', handler);
+  }
+
+  hideRecipeView() {
+    document.querySelector('.recipe-main');
   }
 }
 
